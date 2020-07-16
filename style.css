@@ -1,0 +1,133 @@
+* { margin: 0; padding: 0; box-sizing: border-box;}
+body {font-family: "Roboto", sans-serif; padding: 5px;}
+p { margin: 5px 0 10px 0; }
+#content {
+  display: flex;
+  padding: 15px;
+  margin: 10px auto;
+  max-width: 600px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 7px #ccc;
+  color: #333;
+}
+.about {
+  padding: 15px;
+}
+.about ul {padding: 15px;}
+li {
+  list-style: none;
+  counter-increment: my-awesome-counter;
+}
+li::before {
+  display: inline-block;
+  content: counter(my-awesome-counter);
+  margin-right: 0.25rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  color: white;
+  font-size: 10px;
+  text-align: center;
+  line-height: 1rem;
+  background: #539AEA;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.btn {
+  display: inline-block;
+  position: relative;
+  width: 280px;
+  height: 52px;
+  padding-top: 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+  background-color: #539AEA;
+  font-size: 16px;
+  text-decoration: none;
+  border: 0;
+  outline: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.btn:hover {
+  background-color: #3c8de7;
+  text-decoration: none;
+  color: #fff;
+}
+.btn:active:hover {
+  background-color: #1a73d6;
+}
+.btn-bubbles {
+  -webkit-appearance: none;
+  appearance: none;
+  transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+}
+.btn-bubbles:before, .btn-bubbles:after {
+  position: absolute;
+  content: '';
+  display: block;
+  width: 140%;
+  height: 100%;
+  left: -20%;
+  z-index: -1000;
+  transition: all ease-in-out 0.5s;
+  background-repeat: no-repeat;
+}
+.btn-bubbles:before {
+  display: none;
+  top: -75%;
+  background-image: radial-gradient(circle, #539AEA 20%, transparent 20%), radial-gradient(circle, transparent 20%, #539AEA 20%, transparent 30%), radial-gradient(circle, #539AEA 20%, transparent 20%), radial-gradient(circle, #539AEA 20%, transparent 20%), radial-gradient(circle, transparent 10%, #539AEA 15%, transparent 20%), radial-gradient(circle, #539AEA 20%, transparent 20%), radial-gradient(circle, #539AEA 20%, transparent 20%), radial-gradient(circle, #539AEA 20%, transparent 20%), radial-gradient(circle, #539AEA 20%, transparent 20%);
+  background-size: 10% 20%, 20% 40%, 15% 30%, 20% 40%, 18% 36%, 10% 20%, 15% 30%, 10% 20%, 18% 36%;
+}
+.btn-bubbles:after {
+  display: none;
+  bottom: -75%;
+  background-image: radial-gradient(circle, #539AEA 20%, transparent 20%), radial-gradient(circle, #539AEA 20%, transparent 20%), radial-gradient(circle, transparent 10%, #539AEA 15%, transparent 20%), radial-gradient(circle, #539AEA 20%, transparent 20%), radial-gradient(circle, #539AEA 20%, transparent 20%), radial-gradient(circle, #539AEA 20%, transparent 20%), radial-gradient(circle, #539AEA 20%, transparent 20%);
+  background-size: 15% 30%, 20% 40%, 18% 36%, 20% 40%, 15% 30%, 10% 20%, 20% 40%;
+}
+.btn-bubbles.animate:after {
+  display: block;
+  animation: bottomBubbles ease-in-out 0.75s forwards;
+}
+.btn-bubbles.animate:before {
+  display: block;
+  animation: topBubbles ease-in-out 0.75s forwards;
+}
+.btn-bubbles:active {
+  transform: scale(0.9);
+  background-color: #3c8de7;
+  box-shadow: 0 2px 25px rgba(83, 154, 234, 0.5);
+}
+@keyframes topBubbles {
+  0% {
+      background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
+  }
+  50% {
+      background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 90% 30%;
+  }
+  100% {
+      background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%, 50% 40%, 65% 10%, 90% 20%;
+      background-size: 0% 0%, 0% 0%,  0% 0%,  0% 0%,  0% 0%,  0% 0%;
+  }
+}
+@keyframes bottomBubbles {
+  0% {
+      background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%, 70% -10%, 70% 0%;
+  }
+  50% {
+      background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%, 105% 0%;
+  }
+  100% {
+      background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%, 110% 10%;
+      background-size: 0% 0%, 0% 0%,  0% 0%,  0% 0%,  0% 0%,  0% 0%;
+  }
+}
