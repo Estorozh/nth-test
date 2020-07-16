@@ -1,7 +1,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box;}
 html {min-height: 100%; padding-bottom: 30px;}
 body {font-family: "Roboto", sans-serif; padding: 5px; margin-top: 25px;}
-p { margin: 5px 0 10px 0; }
+p { margin: 5px 0; }
 #content {
   display: flex;
   padding: 15px;
@@ -15,13 +15,17 @@ p { margin: 5px 0 10px 0; }
 .about {
   padding: 15px;
 }
-.about ul {padding: 15px;}
+.about ul {padding: 5px 15px;}
 li {
+  display: flex;
   list-style: none;
   counter-increment: my-awesome-counter;
+  margin-bottom: 5px;
 }
 li::before {
-  display: inline-block;
+  display: table;
+  position: relative;
+  top: 2px;
   content: counter(my-awesome-counter);
   margin-right: 0.25rem;
   width: 1rem;

@@ -21,7 +21,7 @@ export class Router {
       }
       this.el.innerHTML = ""
 
-      const Page = ActiveRoute.path.includes('about') ? this.routes.about : this.routes.form
+      const Page = ActiveRoute.path.includes('form') ? this.routes.form : this.routes.about
       this.page = new Page(ActiveRoute.param)
       console.log("Page ", Page, " this.page ", this.page)
 
