@@ -5,10 +5,22 @@ export class Form extends Page {
     const form = document.createElement('form')
     form.classList.add('form')
     form.innerHTML = `
-        <input type="text" class="formField" name="fullName" placeholder="ФИО">
-        <input type="text" class="formField" name="email" placeholder="example@gmail.com">
-        <input type="text" class="formField" name="phone" placeholder="89999999999">
-        <button type="submit" class="btn btn-bubbles">Отправить</button>
+      <div class="formField">
+        <input type="text" class="formField__input" name="fullName" required>
+        <span class="bar"></span>
+        <label class="formField__label">ФИО</label>
+      </div>
+      <div class="formField">
+        <input type="text" class="formField__input" name="email" required>
+        <span class="bar"></span>
+        <label class="formField__label">Электронная почта</label>
+      </div>
+      <div class="formField">
+        <input type="text" class="formField__input" name="phone" required>
+        <span class="bar"></span>
+        <label class="formField__label">Номер телефона</label>
+      </div>
+      <button type="submit" class="btn btn-bubbles">Отправить</button>
     `;
     return form
   }

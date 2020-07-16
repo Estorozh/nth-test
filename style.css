@@ -39,6 +39,7 @@ nav {
   max-width: 600px;
   margin: 0 auto;
 }
+
 .form {
   display: grid;
   justify-content: center;
@@ -47,13 +48,70 @@ nav {
   grid-gap: 10px;
 }
 .formField {
+  position: relative;
+  padding: 0 5%;
+}
+.formField__input {
   width: 90%;
-  margin: 0 auto;
   border: 0;
   border-bottom: 1px solid #111;
   padding-top: 10px;
   padding-left: 10px;
+  font-size: 16px;
 }
+.formField__input:focus {
+  outline: none;
+}
+.formField__label {
+  color:#999; 
+  font-size:16px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:20px;
+  top:10px;
+  transition:0.3s ease all; 
+  -moz-transition:0.3s ease all; 
+  -webkit-transition:0.3s ease all;
+}
+.formField__input:focus ~ .formField__label, .formField__input:valid ~ label {
+  top: -10px;
+  font-size: 12px;
+  color: #539AEA;
+}
+.formField__input:required {
+  box-shadow: none;
+}
+.formField__input:valid {
+  border-bottom: 1px solid #1a73d6;
+}
+.bar 	{ 
+  position:relative; 
+  display:block; 
+  top:2px;
+  width:90%; 
+}
+.bar:before, .bar:after 	{
+  content:'';
+  height:2px; 
+  width:0;
+  bottom:1px; 
+  position:absolute;
+  background:#539AEA; 
+  transition:0.3s ease all; 
+  -moz-transition:0.3s ease all; 
+  -webkit-transition:0.3s ease all;
+}
+.bar:before {
+  left:50%;
+}
+.bar:after {
+  right:50%; 
+}
+.formField__input:focus ~ .bar:before, .formField__input:focus ~ .bar:after {
+  width:50%;
+}
+
 .btn {
   display: inline-block;
   position: relative;
