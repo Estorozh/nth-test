@@ -31,7 +31,7 @@ export class Router {
   }
 
   destroy() {
-      window.removeEventListener('hashchange', this.changePageHandler)
+    window.removeEventListener('hashchange', this.changePageHandler)
   }
 } 
 
