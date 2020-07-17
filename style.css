@@ -78,11 +78,16 @@ nav {
   -moz-transition:0.3s ease all; 
   -webkit-transition:0.3s ease all;
 }
-.formField__input:focus ~ .formField__label, .formField__input:valid ~ label {
+.formField__input:focus ~ .formField__label, 
+.formField__input:valid ~ label {
   top: -10px;
   font-size: 12px;
   color: #539AEA;
 }
+/* .formField__input:focus:not(:empty):invalid ~ label,
+.formField__input:not(:empty):invalid ~ label {
+  color: red;
+} */
 .formField__input:required {
   box-shadow: none;
 }

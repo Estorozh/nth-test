@@ -11,12 +11,20 @@ export class Form extends Page {
     form.classList.add('form')
     form.innerHTML = `
       <div class="formField">
-        <input type="text" class="formField__input" name="fullName" required>
+        <!-- RegExpом предусмотрел мне кажется все возможные варианты, например, Анна-Мария или Жан-Клод без тройных вложенностей. -->
+        <input type="text" 
+          class="formField__input" 
+          name="fullName" 
+          pattern="(^[A-ZА-ЯЁ]{1}[a-zа-яё]+([-][A-ZА-ЯЁ]{1}[a-zа-яё]+)?(\\s[A-ZА-ЯЁ]{1}[a-zа-яё]+([-][A-ZА-ЯЁ]{1}[a-zа-яё]+)?){2})"
+          title="Фио - должно содержать только фамилию имя и отчество, должны быть указаны полностью (не инициалы), должны быть написаны с заглавной буквы и состоять только из букв"
+          autocomplete="off"
+          required 
+        >
         <span class="bar"></span>
         <label class="formField__label">ФИО</label>
       </div>
       <div class="formField">
-        <input type="text" class="formField__input" name="email" required>
+        <input type="text" class="formField__input" name="email" required pattern="[a-zA-Z]{1,244}@gmail\.com">
         <span class="bar"></span>
         <label class="formField__label">Электронная почта</label>
       </div>
