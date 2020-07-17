@@ -1,7 +1,8 @@
 import {Page} from "./TemplatePage.js"
 import {loader} from "./components/loaderHTML.js"
 import {formHTML} from "./components/formHTML.js"
-import {Request} from "../Request/Request.js"
+import {Request} from "../utils/Request.js"
+import {changeValue} from "../utils/changeValue.js"
 
 export class Form extends Page {
   constructor() {
@@ -50,38 +51,10 @@ export class Form extends Page {
 
     localStorage.clear()
     Array.from(this.formInput).forEach(el=>{
+      data[el.name] = el.value
       el.setAttribute('value', '')
       el.value = ''
     })
-  }
-
-  changeValue() {
-    function getStorage(el) {
-      let key = el.name ? el.name : el.target.name
-      let result = localStorage.getItem(key) === null ? '' : localStorage.getItem(key)
-      return result
-    }
-
-    Array.from(this.formInput).forEach(el =>{
-      el.value = getStorage(el)
-      // выставляю атрибут value у инпут для внешки
-      el.setAttribute('value', getStorage(el))
-
-      el.addEventListener('input', (e)=>{
-        // validation
-        let text = getStorage(e)
-        if (!!e.data) {
-          text += e.data
-          e.target.setAttribute('value', text)
-        }
-        localStorage.setItem(e.target.name, e.target.value)
-      })
-
-      el.addEventListener('change', (e) => {
-        e.target.setAttribute('value', getStorage(e))
-        data[e.target.name] = e.target.value
-      })
-    } )
   }
 
   afterRender() {
@@ -95,7 +68,7 @@ export class Form extends Page {
       form.addEventListener('submit', (event)=>{this.submit(event, form)})
     }
 
-    this.changeValue()
+    changeValue(this.formInput)
   }
 }
 

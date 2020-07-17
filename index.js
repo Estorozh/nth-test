@@ -1,4 +1,4 @@
-import {Router} from './Routing/Route.js'
+import {Router} from './utils/Router.js'
 import {About} from './pages/About.js'
 import {Form} from './pages/Form.js'
 
