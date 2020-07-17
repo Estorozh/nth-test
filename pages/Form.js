@@ -39,8 +39,37 @@ export class Form extends Page {
       formResponse.innerHTML = formRequest;
     },2000)
 
-    localStorage.clear()
+    // localStorage.clear()
     Array.from(this.formInput).forEach(el=>el.value="")
+  }
+
+  changeValue() {
+    function getStorage(el) {
+      let key
+      el.name ? key = el.name : key = el.target.name
+
+      return localStorage.getItem(key)
+    }
+
+    Array.from(this.formInput).forEach(el =>{
+      el.value = getStorage(el)
+      // выставляю атрибут value у инпут для внешки
+      el.setAttribute('value', getStorage(el))
+
+      el.addEventListener('input', (e)=>{
+        // validation
+        let text = getStorage(e)
+        if (!!e.data) {
+          text += e.data
+          e.target.setAttribute('value', text)
+        }
+        localStorage.setItem(e.target.name, e.target.value)
+      })
+
+      el.addEventListener('change', (e) => {
+        e.target.setAttribute('value', getStorage(e))
+      })
+    } )
   }
 
   afterRender() {
@@ -54,13 +83,7 @@ export class Form extends Page {
       form.addEventListener('submit', (event)=>{this.send(event, form)})
     }
 
-    Array.from(this.formInput).forEach(el =>{
-      el.value = localStorage.getItem(el.name)
-      el.addEventListener('input', (e)=>{
-        // validation
-        localStorage.setItem(e.target.name, e.target.value)
-      })
-    } )
+    this.changeValue()
   }
 }
 

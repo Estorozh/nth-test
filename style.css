@@ -66,6 +66,9 @@ nav {
 .formField__input:focus {
   outline: none;
 }
+.formField__input:required {
+  box-shadow: none;
+}
 .formField__label {
   color:#999; 
   font-size:16px;
@@ -79,17 +82,22 @@ nav {
   -webkit-transition:0.3s ease all;
 }
 .formField__input:focus ~ .formField__label, 
-.formField__input:valid ~ label {
+.formField__input:valid ~ label,
+.formField__input:not([value=""]):not(:focus):invalid ~ label {
   top: -10px;
   font-size: 12px;
   color: #539AEA;
 }
-/* .formField__input:focus:not(:empty):invalid ~ label,
-.formField__input:not(:empty):invalid ~ label {
-  color: red;
-} */
-.formField__input:required {
-  box-shadow: none;
+.formField__input:not([value=""]):not(:focus):invalid ~ label {
+  color: #F13B5C;
+}
+.formField__input:not([value=""]):not(:focus):invalid {
+  border-bottom: 1px solid #F13B5C;
+}
+.formField__input[value=""] ~ label {
+  top: 10px;
+  font-size: 16px;
+  color: #999;
 }
 .formField__input:valid {
   border-bottom: 1px solid #1a73d6;
@@ -142,6 +150,14 @@ nav {
   user-select: none;
   cursor: pointer;
 }
+.btn:not(.btn-bubbles) {
+  box-shadow: 0px 4px 10px rgba(62, 161, 252, 0.25), 0px 2px 0px #3c8de7;
+  transition: transform .3s;
+}
+.btn:active {
+  transform: scale(.9);
+  background-color: #3c8de7;
+}
 .btn:hover {
   background-color: #3c8de7;
   text-decoration: none;
@@ -188,8 +204,6 @@ nav {
   animation: topBubbles ease-in-out 0.75s forwards;
 }
 .btn-bubbles:active {
-  transform: scale(0.9);
-  background-color: #3c8de7;
   box-shadow: 0 2px 25px rgba(83, 154, 234, 0.5);
 }
 @keyframes topBubbles {
