@@ -1,7 +1,6 @@
 export function changeValue(formInput) {
   Array.from(formInput).forEach(el =>{
-    el.value = getStorage(el)
-    el.setAttribute('value', getStorage(el))
+    setValue(el)
 
     el.addEventListener('input', (e)=>{
       let text = getStorage(e)
@@ -13,23 +12,36 @@ export function changeValue(formInput) {
     })
 
     el.addEventListener('change', (e) => {
-      e.target.setAttribute('value', getStorage(e))
+      setValue(e.target)
     })
 
     el.addEventListener('paste', (e)=> {
       let paste = e.clipboardData.getData('text')
-
       eventPaste(e.target, paste)
-
       e.preventDefault()
     })
   } )
+}
+
+function setValue(el) {
+  const target = el.target || el
+  const value = getStorage(target).trim()
+  target.value = value
+  target.setAttribute('value', value)
+  localStorage.setItem(target.name, value)
 }
 
 function getStorage(el) {
   let key = el.name ? el.name : el.target.name
   let result = localStorage.getItem(key) === null ? '' : localStorage.getItem(key)
   return result
+}
+
+function eventPaste(el, text) {
+  let result = text.replace((type[el.name].re || type[el.name]), (type[el.name].fn || ''))
+  el.setRangeText(result)
+  localStorage.setItem(el.name, el.value)
+  type.switcher = false
 }
 
 const type = {
@@ -50,11 +62,4 @@ const type = {
     return ''
   },
   switcher: false
-}
-
-function eventPaste(el, text) {
-  let result = text.replace((type[el.name].re || type[el.name]), (type[el.name].fn || ''))
-  el.setRangeText(result)
-  localStorage.setItem(el.name, el.value)
-  type.switcher = false
 }
