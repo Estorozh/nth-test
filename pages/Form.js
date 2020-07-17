@@ -1,6 +1,7 @@
 import {Page} from "./TemplatePage.js"
 import {loader} from "./components/loaderHTML.js"
 import {formHTML} from "./components/formHTML.js"
+// import {Request} from "../Request/Request.js"
 
 export class Form extends Page {
   constructor() {
@@ -25,11 +26,14 @@ export class Form extends Page {
     }, 700);
   }
 
-  send(event, form) {
+  submit(event, form) {
     event.preventDefault()
-    let formData = new FormData(form); // должен автоматически забрать в себя объекты формы с полем name
+    // let req = new Request(form)
+    // req.send()
+    // let formData = new FormData(form); // должен автоматически забрать в себя объекты формы с полем name
     // formData.set(name, value)
     // formData.has(name)
+
     const formResponse = document.querySelector('.formResponse')
     formResponse.innerHTML = loader
     const now = Date.now()
@@ -39,16 +43,18 @@ export class Form extends Page {
       formResponse.innerHTML = formRequest;
     },2000)
 
-    // localStorage.clear()
-    Array.from(this.formInput).forEach(el=>el.value="")
+    localStorage.clear()
+    Array.from(this.formInput).forEach(el=>{
+      el.setAttribute('value', '')
+      el.value = ''
+    })
   }
 
   changeValue() {
     function getStorage(el) {
-      let key
-      el.name ? key = el.name : key = el.target.name
-
-      return localStorage.getItem(key)
+      let key = el.name ? el.name : el.target.name
+      let result = localStorage.getItem(key).toString() === "null" ? '' : localStorage.getItem(key)
+      return result
     }
 
     Array.from(this.formInput).forEach(el =>{
@@ -80,7 +86,7 @@ export class Form extends Page {
 
     let form = document.querySelector('form')
     if (form) {
-      form.addEventListener('submit', (event)=>{this.send(event, form)})
+      form.addEventListener('submit', (event)=>{this.submit(event, form)})
     }
 
     this.changeValue()
