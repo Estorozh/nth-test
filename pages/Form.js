@@ -30,8 +30,8 @@ export class Form extends Page {
   submit(event, form) {
     event.preventDefault()
     const formResponse = document.querySelector('.formResponse')
-    let req = new Request(form)
-    req.send()
+    let request = new Request(form)
+    request.send()
 
     formResponse.innerHTML = loader
 
@@ -40,12 +40,14 @@ export class Form extends Page {
     date = date.toLocaleDateString() + ' в ' + date.toLocaleTimeString()
 
     setTimeout(()=>{
-      const response = JSON.parse(req.getResponse())
+      const response = request.getResponse()
+      const values = Object.values(response)
+      let templateValues = ''
+      values.forEach(value => {templateValues += `<p>${value}</p>`})
+
       formResponse.innerHTML = `
         <h4>Запрос был отправлен ${date}</h4>
-        <p>${response.name}</p>
-        <p>${response.email}</p>
-        <p>${response.phone}</p>
+        ${templateValues}
       `
     },2000)
 

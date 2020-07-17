@@ -23,7 +23,6 @@ export class Router {
 
       const Page = ActiveRoute.path.includes('form') ? this.routes.form : this.routes.about
       this.page = new Page(ActiveRoute.param)
-      console.log("Page ", Page, " this.page ", this.page)
 
       this.el.append(this.page.getRoot())
 

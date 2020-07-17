@@ -232,6 +232,15 @@ nav {
   }
 }
 
+.formResponse {
+  width: 568px;
+  margin: 20px auto;
+}
+.formResponse h4 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
 footer {
   position: fixed;
   bottom: 3px;
@@ -246,6 +255,18 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
+  nav {
+    justify-content: space-around;
+  }
+  .btn:not(.btn-bubbles) {
+    width: 150px;
+  }
+  .formResponse {
+    width: auto;
+  }
+  .formResponse p {
+    margin: 10px 0;
+  }
   footer {
     position: relative;
     text-align: center;

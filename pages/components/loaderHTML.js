@@ -1,16 +1,18 @@
 export const loader = `
-<div class="loadingio-spinner-spinner-78o7s0h5tl4"><div class="ldio-hp2wpoa2fsa">
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-</div></div>
+<div class="loadingio-spinner-spinner-78o7s0h5tl4">
+  <div class="ldio-hp2wpoa2fsa">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
 <style type="text/css">
   @keyframes ldio-hp2wpoa2fsa {
     0% { opacity: 1 }
@@ -70,9 +72,10 @@ export const loader = `
   .loadingio-spinner-spinner-78o7s0h5tl4 {
     width: 100px;
     height: 100px;
-    display: inline-block;
+    display: block;
     overflow: hidden;
     background: none;
+    margin: 0 auto;
   }
   .ldio-hp2wpoa2fsa {
     width: 100%;

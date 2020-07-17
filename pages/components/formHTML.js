@@ -30,8 +30,11 @@ export const formHTML = `
   <input type="text" 
     class="formField__input" 
     name="phone" 
-    required 
+    pattern="^((\\+7|07|8)+([0-9]){10})$"
+    title="Телефон должен быть цифровым и поддерживать форматы +7*, 8* или 07*"
+    maxlength="12"
     value=""
+    required 
   >
   <span class="bar"></span>
   <label class="formField__label">Номер телефона</label>
