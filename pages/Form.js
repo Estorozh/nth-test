@@ -1,5 +1,5 @@
 import {Page} from "./TemplatePage.js"
-import {loader} from "./components/loaders.js"
+import {loader} from "./components/loaderHTML.js"
 import {formHTML} from "./components/formHTML.js"
 
 export class Form extends Page {
