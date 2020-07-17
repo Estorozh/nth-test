@@ -44,8 +44,8 @@ export class Form extends Page {
       formResponse.innerHTML = `
         <h4>Запрос был отправлен ${date}</h4>
         <p>${response.name}</p>
-        <p>${response.phone}</p>
         <p>${response.email}</p>
+        <p>${response.phone}</p>
       `
     },2000)
 

@@ -1,10 +1,4 @@
 export function changeValue(formInput) {
-  function getStorage(el) {
-    let key = el.name ? el.name : el.target.name
-    let result = localStorage.getItem(key) === null ? '' : localStorage.getItem(key)
-    return result
-  }
-
   Array.from(formInput).forEach(el =>{
     el.value = getStorage(el)
     // выставляю атрибут value у инпут для внешки
@@ -25,8 +19,40 @@ export function changeValue(formInput) {
     })
 
     el.addEventListener('paste', (e)=> {
-      console.log('вставлены данне', e)
-      afterPaste(e.target)
+      let paste = e.clipboardData.getData('text')
+
+      eventPaste(e.target, paste)
+
+      e.preventDefault()
     })
   } )
+}
+
+function getStorage(el) {
+  let key = el.name ? el.name : el.target.name
+  let result = localStorage.getItem(key) === null ? '' : localStorage.getItem(key)
+  return result
+}
+
+const type = {
+  name: new RegExp('[^a-zA-Zа-яёА-ЯЁ ]','g'),
+  email: {
+    re: new RegExp('[^a-z\\.\\-\\_]','ig'),
+    fn(symbol) {
+      if(symbol == '@' && !type.email.at) {
+        type.email.at = true;
+        return '@'
+      }
+      return ''
+    },
+    at: false
+  },
+  phone: new RegExp('')
+}
+
+function eventPaste(el, text) {
+  let result = text.replace((type[el.name].re || type[el.name]), (type[el.name].fn || ''))
+  el.setRangeText(result)
+  localStorage.setItem(el.name, el.value)
+  type.email.at = false
 }
