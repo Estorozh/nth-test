@@ -1,25 +1,29 @@
 export class Request {
-  constructor() {
-    super()
+  constructor(form) {
     this.form = form
     this.formData = new FormData(this.form);
+    this.response
   }
 
-  send() {
-    let request = new XMLHttpRequest();
-    request.open('POST', 'request.php');
-    request.addEventListener('readystatechange', function() {
-      if (this.readyState == 4 && this.status == 200) {
-        let data = JSON.parse(this.responseText);
+  checkStatus(response) {
+    if(response.ok) {
+      return response
+    }
+    this.response = new Error(response.statusText)
+    throw this.response
+  }
 
-        for (var key in data) {
-          console.log(key, data[key])
-        }
-
-      }
+  async send() {
+    let response = await fetch('request.php', {
+      method: "POST",
+      body: this.formData
     })
-    console.log(this.formData.get('email'))
-    // отправляем запрос на сервер
-    request.send(this.formData);
+    this.checkStatus(response)
+    response = await response.json()
+    this.response = JSON.stringify(response)
+  }
+
+  getResponse() {
+    return this.response
   }
 }

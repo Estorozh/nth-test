@@ -1,7 +1,7 @@
 import {Page} from "./TemplatePage.js"
 import {loader} from "./components/loaderHTML.js"
 import {formHTML} from "./components/formHTML.js"
-// import {Request} from "../Request/Request.js"
+import {Request} from "../Request/Request.js"
 
 export class Form extends Page {
   constructor() {
@@ -28,19 +28,24 @@ export class Form extends Page {
 
   submit(event, form) {
     event.preventDefault()
-    // let req = new Request(form)
-    // req.send()
-    // let formData = new FormData(form); // должен автоматически забрать в себя объекты формы с полем name
-    // formData.set(name, value)
-    // formData.has(name)
-
     const formResponse = document.querySelector('.formResponse')
+    let req = new Request(form)
+    req.send()
+
     formResponse.innerHTML = loader
+
     const now = Date.now()
-    const date =  new Date(now).toLocaleString()
-    const formRequest = `<h3>Запрос был отправлен в ${date}</h3>`
+    let date =  new Date(now)
+    date = date.toLocaleDateString() + ' в ' + date.toLocaleTimeString()
+
     setTimeout(()=>{
-      formResponse.innerHTML = formRequest;
+      const response = JSON.parse(req.getResponse())
+      formResponse.innerHTML = `
+        <h4>Запрос был отправлен ${date}</h4>
+        <p>${response.name}</p>
+        <p>${response.phone}</p>
+        <p>${response.email}</p>
+      `
     },2000)
 
     localStorage.clear()
@@ -53,7 +58,7 @@ export class Form extends Page {
   changeValue() {
     function getStorage(el) {
       let key = el.name ? el.name : el.target.name
-      let result = localStorage.getItem(key).toString() === "null" ? '' : localStorage.getItem(key)
+      let result = localStorage.getItem(key) === null ? '' : localStorage.getItem(key)
       return result
     }
 
@@ -74,6 +79,7 @@ export class Form extends Page {
 
       el.addEventListener('change', (e) => {
         e.target.setAttribute('value', getStorage(e))
+        data[e.target.name] = e.target.value
       })
     } )
   }
