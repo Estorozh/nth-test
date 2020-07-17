@@ -1,6 +1,11 @@
-import {Page} from "./Routing/Page.js"
+import {Page} from "./TemplatePage.js"
 
 export class Form extends Page {
+  constructor() {
+    super()
+    this.formInput = document.getElementsByClassName('formField__input')
+  }
+
   getRoot() {
     const form = document.createElement('form')
     form.classList.add('form')
@@ -45,7 +50,9 @@ export class Form extends Page {
     const date =  new Date(now).toLocaleString()
     const formRequest = `<h3>Запрос был отправлен в ${date}</h3>`
     formResponse.innerHTML = formRequest;
-    console.log(form, formData.get('phone'))
+
+    localStorage.clear()
+    Array.from(this.formInput).forEach(el=>el.value="")
   }
 
   afterRender() {
@@ -53,10 +60,16 @@ export class Form extends Page {
     if (btnBubbles){
       btnBubbles.addEventListener('click', (e)=> {this.animate(e);})
     }
+
     let form = document.querySelector('form')
     if (form) {
       form.addEventListener('submit', (event)=>{this.send(event, form)})
     }
+
+    Array.from(this.formInput).forEach(el =>{
+      el.value = localStorage.getItem(el.name)
+      el.addEventListener('input', (e)=>{localStorage.setItem(e.target.name, e.target.value)})
+    } )
   }
 }
 

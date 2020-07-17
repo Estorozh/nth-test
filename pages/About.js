@@ -1,4 +1,4 @@
-import {Page} from "./Routing/Page.js"
+import {Page} from "./TemplatePage.js"
 
 export class About extends Page {
   getRoot() {
