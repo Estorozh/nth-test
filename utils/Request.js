@@ -2,37 +2,29 @@ export class Request {
   constructor(form) {
     this.formData = new FormData(form);
     this.response = {}
+    this.errServ = 'Ошибка при обращению к файлу на сервере.<br> Возможно такого файла не существует.'
+  }  
+
+  send() {
+    fetch('https://ahilis.ru/request.php', {
+          method: "POST",
+          body: this.formData
+        })
+        .then(this.checkStatus)
+        .then(res => res.json())
+        .then(data => this.response = data)
+        .catch((err) => {
+            this.response.err = this.errServ;
+            console.log('Error: ' + err.message);
+        })
   }
 
-  type = {
-    errServ: 'Ошибка при обращению к файлу на сервере. Возможно такого файла не существует.',
-    template: {
-      name: '',
-      email: '',
-      phone: '',
-    }
-  }
-
-  checkStatus(response) {
-    if(response.status == 200) {
-      return response
-    }
-    this.response = {...{err: (response.status ? response.statusText : this.type.errServ)}}
-    throw this.response.err 
-  }
-
-  async send() {
-    try {
-      let response = await fetch('https://ahilis.ru/request.php', {
-        method: "POST",
-        body: this.formData
-      })
-      this.checkStatus(response)
-      this.response = await response.json()
-    } catch {
-      this.response.err = this.type.errServ; 
-      throw this.response.err;
-    }
+  checkStatus(res) {
+    if (res.status >= 200 && res.status < 300) {
+        return res;
+    } 
+    this.response.err = this.errServ;
+    throw this.response
   }
 
   getResponse() {

@@ -11,9 +11,7 @@ export function changeValue(formInput) {
       localStorage.setItem(e.target.name, e.target.value)
     })
 
-    el.addEventListener('change', (e) => {
-      setValue(e.target)
-    })
+    el.addEventListener('change', setValue)
 
     el.addEventListener('paste', (e)=> {
       let paste = e.clipboardData.getData('text')
